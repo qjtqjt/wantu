@@ -53,13 +53,14 @@
 			</div>
 		</div>
 	    <!--<FileList v-for="item in list" :url="item.url" :name='item.name'></FileList>-->
+	<Bottom></Bottom>
 	</div>
 </template>
 <script>
-//import Header from '../../commons/Header'//引入组件	
+import Bottom from '../../commons/Bottom'//引入组件	
 export default{
 	name:'Des',
-	components:{},
+	components:{Bottom},
 	data(){
 		return {
 			name:'下一次你想去哪里？',

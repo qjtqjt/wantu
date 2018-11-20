@@ -27,7 +27,7 @@
 					<div class="kamian-right">
 						<b> ￥ </b>
 						<h3>0</h3>
-						<b> < </b>
+						<b>  </b>
 					</div>
 					
 				</div>
@@ -41,7 +41,7 @@
 					<p>已过期，需要购买机票获得权限</p>
 				</div>
 				<div class="header-footer-font">
-					<
+					
 				</div>
 			</div>
 		</div>

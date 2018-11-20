@@ -1,10 +1,10 @@
 <template>
     <div class='bottom'>
        <ul>
-           <li v-for="(item,index) in list" :key="index">
+           <li  v-for="(item,index) in list" :key="index" @click="goto(index)" :class="index===now?'light':''">
                <i :class="item.class"></i>
                <span>{{item.title}}</span>
-             <!-- <p>你好</p> -->
+             
            </li>
        </ul>
     </div>
@@ -19,7 +19,18 @@ export default {
                   {class:'fa fa-map-marker',title:'目的地'},
                    {class:'fa fa-list-ul',title:'订单'},
                    {class:'fa fa-user-o',title:'我',}
-                  ]
+                  ],
+            address:[
+                  '/','/Des',
+            ],
+            now:0
+        }
+    },
+    methods:{
+        goto(index){
+            this.now=index;
+            // this.$router.push({path:'this.address[index]'})
+            this.$router.push({path:this.address[index]})
         }
     }
 }
@@ -58,6 +69,9 @@ export default {
                  .f-s(10);
                 //  margin-top: -15px;
              }
+         }
+         .light{
+             color: red;
          }
      }
     
