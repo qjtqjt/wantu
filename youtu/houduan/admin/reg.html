@@ -1,0 +1,214 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit|ie-comp|ie-stand">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<![endif]-->
+<link href="static/h-ui/css/H-ui.min.css" rel="stylesheet" type="text/css" />
+<link href="static/h-ui.admin/css/H-ui.login.css" rel="stylesheet" type="text/css" />
+<link href="static/h-ui.admin/css/style.css" rel="stylesheet" type="text/css" />
+<link href="lib/Hui-iconfont/1.0.8/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script><![endif]-->
+<title>后台登录 - H-ui.admin.page v3.0</title>
+<meta name="keywords" content="H-ui.admin v3.0,H-ui网站后台模版,后台模版下载,后台管理系统模版,HTML后台模版下载">
+<meta name="description" content="H-ui.admin v3.0，是一款由国人开发的轻量级扁平化网站后台模板，完全免费开源的网站后台管理系统模版，适合中小型CMS后台系统。">
+</head>
+<body>
+<input type="hidden" id="TenantId" name="TenantId" value="" />
+<div class="header">
+	<div class="header_left"><img src="./jiangxiaobai.png"></div>
+
+</div>
+<div class="loginWraper">
+	<div id="loginform" class="loginBox">
+		<div class="form form-horizontal">
+			<div class="row cl">
+				<label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
+				<div class="formControls col-xs-8">
+					<input id="you_inp" name="" type="text" placeholder="请输入您的邮箱" class="input-text size-L">
+				</div>
+			</div>
+			<div class="row cl">
+				<label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60e;</i></label>
+				<div class="formControls col-xs-8">
+					<input type="password" id="pass_inp" name="inp" placeholder="请输入您的密码" class="input-text size-L"/>
+					<p class="pass_text"></p>
+				</div>
+			</div>
+			<div class="row cl" style="margin-top:10px">
+				<div class="formControls col-xs-8 col-xs-offset-3 fa">
+					<input id="mail_code" class="input-text size-L" type="text" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:" style="width:150px;color:#888">
+					<!--<img src="images/VerifyCode.aspx.png">-->
+					<a id="kanbuq" style="font-size: 16px;font-weight: 900;" onclick="getTimer()" href="javascript:;">点击获取验证码</a>
+					<!--<a id="shi" style="font-size: 16px;font-weight: 900;color: whitesmoke;">重新获取验证码：<span>60</span>s</a>-->
+				</div>
+			</div>
+			<div class="row cl">
+				<div class="formControls col-xs-8 col-xs-offset-3">
+					<input name="" type="submit" id="reg_btn" class="btn btn-success radius size-L" value="&nbsp;注&nbsp;&nbsp;&nbsp;&nbsp;册&nbsp;">
+					<input name="" type="reset" class="btn btn-default radius size-L login_btn" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--<div class="footer">Copyright 你的公司名称 by H-ui.admin.page.v3.0</div>-->
+
+<script type="text/javascript" src="lib/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="static/h-ui/js/H-ui.js"></script>
+<script src="../list/cookie.js" type="text/javascript" charset="utf-8"></script>
+<script>
+//var _hmt = _hmt || [];
+//(function() {
+//var hm = document.createElement("script");
+//hm.src = "https://hm.baidu.com/hm.js?080836300300be57b7f34f4b3e97d911";
+//var s = document.getElementsByTagName("script")[0]; 
+//s.parentNode.insertBefore(hm, s);
+//})();
+
+var rootpath='http://localhost:8000';
+
+//验证邮箱格式是否正确
+
+$("#you_inp").blur(function (){
+	var val= $("#you_inp").val();
+    var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/;
+	if(!myreg.test(val)){
+		alert('请输入正确的邮箱');
+	}
+});
+
+//密码的正则表达式
+
+$("#pass_inp").blur(function (){
+	var val= $("#pass_inp").val();
+    var myreg_pass = /^[a-zA-Z]\w{5,11}$/;
+	if(!myreg_pass.test(val)){
+		$(".pass_text").html('以字母开头，长度在6-12之间，只能包含字符、数字和下划线');
+	}else{
+
+		$(".pass_text").html("");
+	}
+});
+
+//ajax用post方式传递数据给后台
+//1350296586@qq.com
+
+
+// 获取验证码
+//function getTimer(){
+//	var val= $("#you_inp").val();
+//  var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/;
+//	if(!myreg.test(val)){
+//		alert('请输入正确的邮箱');
+//	}else{
+//		$.post(rootpath+'/api/user/mail',{email:val},function(res){
+//	        alert(res.msg);
+//	        $("#kanbuq").css("display","none");
+//	        var a=$('<a id="shi" style="font-size: 16px;font-weight: 900;color: whitesmoke;">重新获取验证码：<span style="color: tomato;">60</span>s</a>')
+////			console.log(a);	
+//			a.appendTo($(".fa"));
+//			//设置一个定时器，倒计时60秒才可以重新获取发送验证码
+//			var s=60;
+//			var timeTou=null;
+//			clearInterval(timeTou);
+//			
+//			timeTou=setInterval(function (){
+//				s--;
+//				if(s<0){
+//					a.remove();
+//					$("#kanbuq").css("display","inline-block");
+//					
+//				}else{
+//					$("#shi span").html(s);
+//				}
+//			},1000)
+//		})
+//	}
+//}
+
+var setTimer = function(){
+    var timer = new Date().getTime(),
+    nextTime,
+    firstUse = true;
+    return function(){
+      	if(firstUse){
+			var val= $("#you_inp").val();
+		    var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/;
+			if(!myreg.test(val)){
+				alert('请输入正确的邮箱');
+			}else{
+				$.post(rootpath+'/api/user/mail',{email:val},function(res){
+			       alert(res.msg)
+				})
+			}	
+           	return firstUse = false;
+        }
+        nextTime = new Date().getTime();
+        if(nextTime - timer < 500){
+          	timer = nextTime;
+          	return false;
+        }
+        var val= $("#you_inp").val();
+	    var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,4}$/;
+		if(!myreg.test(val)){
+			alert('请输入正确的邮箱');
+		}else{
+			$.post(rootpath+'/api/user/mail',{email:val},function(res){
+		       alert(res.msg)
+			})
+		}	
+        timer = nextTime;
+    }
+}
+
+var getTimer = setTimer();
+
+//ajax用post方式传递数据给后台 
+
+$("#reg_btn").click( function(){
+	var key=$('#you_inp').val()&&$('#pass_inp').val()&&$('#mail_code').val();
+	if(!key){
+		alert("请先填好信息");
+		return ""
+	}
+	var data={
+		us:$('#you_inp').val(),
+		pass:$('#pass_inp').val(),
+		code:$('#mail_code').val()
+	}
+	$.post(rootpath+'/api/user/reg',data,function(res){
+		alert(res);
+		// window.location.href = rootpath+"index.html";
+		if(res=="注册ok"){
+			//设置cookie
+//			setCookie("user",$('#you_inp').val(),7)
+			location.href= "./login.html";
+		}
+	})
+})
+
+//点击登录按钮
+$(".login_btn").click(function (){
+	$(location).attr('href', "./login.html");
+})
+
+
+$("#kanbuq").css("color","white");
+$("#kanbuq").mouseover(function (){
+	$(this).css("color","#D4D4D4");
+}).mouseleave(function (){
+	$(this).css("color","white");
+})
+
+</script>
+</body>
+</html>
