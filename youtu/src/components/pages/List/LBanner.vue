@@ -19,7 +19,7 @@
             infinite-scroll-disabled="loading"
             infinite-scroll-distance="10"
           >
-          <aside  v-for="(item1,index) in gdata.products" :key="index+111">
+          <aside  v-for="(item1,index) in gdata.products" :key="index+111" @click="asideclick(item1)"> 
               <img  class='aside-img'  :src="now? item1.cover_image : item1.images[0].image_url" alt="">
               <div class='aside-right'>
                     <span class='title'>{{now?item1.name:item1.alias}}</span>
@@ -80,17 +80,16 @@ export default {
                                 }
             })
             .then((res)=>{
-                // :src='gdata.base_info.h5_image_url'
+                //:src='gdata.base_info.h5_image_url'
                 this.gdata=res.data;
                 this.gdata.base_info = res.data.base_info;
                 this.gdata.products = res.data.tab_info.products;
-                // console.log(this.gdata.products)
-                 this.gdata.products=this.gdata.products.concat(res.data.tab_info.products)
-           
-                // console.log( this.gdata.products)
-            //   Toast('请求ok');
-              this.page++;
-              this.toast.close();
+                //console.log(this.gdata.products)
+                this.gdata.products=this.gdata.products.concat(res.data.tab_info.products)           
+                console.log( this.gdata.products)
+	            //Toast('请求ok');
+	            this.page++;
+	            this.toast.close();
             })
             .catch((err)=>{
                 console.log(err)
@@ -101,6 +100,10 @@ export default {
             console.log(this.now);
             this.getData();
         },
+        asideclick(item1){
+        	this.$router.push({path: '/Xq',query:{ arrproduce:item1.product_id}});
+        	console.log(item1.product_id);
+        }
     },
     created(){
          this.getData();

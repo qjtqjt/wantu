@@ -117,36 +117,36 @@ export default{
 			arrdata:[],
 			index:null,
 			arrind:{},
-			city_code:['BKK','HKT','CNX','SIN','SYX','TYO','OSA','HKG','SABA']
+			product_id:[],
+//			city_code:['BKK','HKT','CNX','SIN','SYX','TYO','OSA','HKG','SABA']
+			city_code:null
 		}
 	},
 	methods:{
 		fn(){
-			this.$axios.get("api/public/city/cityData?city_code="+this.city_code[0]+"&tab_id=1&search=1")
+			this.$axios.get("api/public/city/cityData?city_code=BKK&tab_id=1&search=1")
 			.then((res)=>{
-//				console.log(res);
+				console.log(res);
 				this.arr=res.data
-//				console.log(this.arr);
+				console.log(this.arr);
 				this.arrdata=this.arr.tab_info;
 				console.log(this.arrdata);
            		this.arrbanner=this.arrdata.products;
            		console.log(this.arrbanner);
-           		this.arrind=this.arrbanner[0];
+           		this.arrind=this.arrbanner[1];
            		console.log(this.arrind);
+           		this.product_id=this.$route.query.product_id;
+        		console.log(this.product_id);
            		
            	})
            	.catch((err)=>{
            		console.log(err)
            	})
-		},
-		clickli(index){
-			this.nowli=index;
-			console.log(this.nowli);
-			this.arrright=this.arr[this.nowli];
 		}
 	},
 	created(){
 		this.fn();
+		
 	}
 }
 </script>
@@ -184,7 +184,7 @@ export default{
 	}
 	.title{
 		.w(330);
-		.h(160);
+		.h(190);
 		border-bottom: 1px solid #eee;
 		.margin(20,20,20,20);
 			.ti{
