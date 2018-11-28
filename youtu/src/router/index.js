@@ -24,6 +24,12 @@ export default new Router({
  
     },
     {
+      path: '/home',//匹配hash地址
+      name: 'Home',//路由的名字
+      component:Home    //该组件应用的组件名字
+ 
+    },
+    {
       path: '/List',
       name: 'List',//路由的名字
       component:List   //该组件应用的组件名字

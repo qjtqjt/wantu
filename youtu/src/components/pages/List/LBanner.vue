@@ -70,29 +70,24 @@ export default {
                  message: '请求ok',
 			     iconClass: 'fa fa-spinner fa-spin'
             })
-            // http://www.wantu.cn/v2/m/dest/BKK?tab_id=2
-            // http://www.wantu.cn/public/city/cityData
             this.$axios.get("/api/public/city/cityData",{
-                            // params:{city_code:newNmae,tab_id:div}   
+                    
                             params:{
                                 city_code:newNmae,
                                 tab_id:this.bb[this.now],
                                 }
             })
             .then((res)=>{
-                //:src='gdata.base_info.h5_image_url'
                 this.gdata=res.data;
                 this.gdata.base_info = res.data.base_info;
                 this.gdata.products = res.data.tab_info.products;
-                //console.log(this.gdata.products)
+            
                 this.gdata.products=this.gdata.products.concat(res.data.tab_info.products)           
-                console.log( this.gdata.products)
-	            //Toast('请求ok');
+            
 	            this.page++;
 	            this.toast.close();
             })
             .catch((err)=>{
-                console.log(err)
             })
         },
          selIrem(index){
@@ -102,7 +97,7 @@ export default {
         },
         asideclick(item1){
         	this.$router.push({path: '/Xq',query:{ arrproduce:item1.product_id}});
-        	console.log(item1.product_id);
+        
         }
     },
     created(){

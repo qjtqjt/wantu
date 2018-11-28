@@ -1,7 +1,9 @@
 <template>
-	<div class="login">
-		<div class="top">
-			<i class="fa fa-chevron-left"></i>
+	<div class="login" >
+		<div class="top" @click="back()" >
+			<!-- $router.history.go(-1) -->
+			<i   class="fa fa-chevron-left"></i>
+			<!-- <i></i> -->
 			<h2>
 			<div class="top-img">
 				<img src="./login.png" />
@@ -53,6 +55,9 @@
 			}
 		},
 		methods:{
+			back(){
+				this.$router.push({path:'/home'})
+			},
 			//邮箱验证
 		   checkPhone(){
 			    var regEmail= /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;

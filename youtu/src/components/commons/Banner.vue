@@ -1,6 +1,6 @@
 <template>
     <div class='banner'>
-        <div class="swiper-container">
+        <div class="swiper-container lun">
 	    <!-- Additional required wrapper -->
 	    <div class="swiper-wrapper" >
 	        <!-- Slides -->
@@ -33,8 +33,17 @@
             }
         },
         mounted() {
-            var mySwiper = new Swiper('.swiper-container', {
-				 loop: true
+            var mySwiper = new Swiper('.lun', {
+                 spaceBetween: 10,
+                 loop: true,
+                   autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                    },
+                    pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                    }
 			});	
         },
 

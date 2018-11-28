@@ -82,12 +82,12 @@ export default{
            		this.arrright=this.arr[0];
            	})
            	.catch((err)=>{
-           		console.log(err)
+           		// console.log(err)
            	})
 		},
 		clickli(index){
 			this.nowli=index;
-			console.log(this.nowli);
+			// console.log(this.nowli);
 			this.arrright=this.arr[this.nowli];
 		}
 	},

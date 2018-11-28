@@ -37,10 +37,10 @@ export default {
              this.$axios.get('/api/public/home/homeForMobile')
              .then((res)=>{
                  this.list=res.data.block_list;
-                 console.log(this.list)
+                //  console.log(this.list)
              })
              .catch((err)=>{
-                 console.log(err)
+                //  console.log(err)
              })
              
          }

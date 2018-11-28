@@ -1,11 +1,12 @@
 <template>
     <div class='bottom'>
        <ul>
-           <li  v-for="(item,index) in list" :key="index" @click="goto(index)" :class="index===now?'light':''">
+          
+           <router-link tag="li" active-class='light' :to='item.path'  v-for="(item,index) in list" :key="index" >
                <i :class="item.class"></i>
                <span>{{item.title}}</span>
              
-           </li>
+           </router-link>
        </ul>
     </div>
 </template>
@@ -15,24 +16,16 @@ export default {
     components:{},
     data(){
         return{
-            list:[{class:'fa fa-home',title:'发现'},
-                  {class:'fa fa-map-marker',title:'目的地'},
-                   {class:'fa fa-list-ul',title:'订单'},
-                   {class:'fa fa-user-o',title:'我',}
+            list:[{class:'fa fa-home',title:'发现',path:'/home'},
+                  {class:'fa fa-list-ul',title:'列表',path:'/List'},
+                  {class:'fa fa-map-marker',title:'目的地',path:'/Des'},
+                   {class:'fa fa-user-o',title:'我',path:'/Reg'}
                   ],
-            address:[
-                  '/','/Des',
-            ],
+            
             now:0
         }
     },
-    methods:{
-        goto(index){
-            this.now=index;
-            // this.$router.push({path:'this.address[index]'})
-            this.$router.push({path:this.address[index]})
-        }
-    }
+    
 }
 </script>
 <style lang="less" scoped>
